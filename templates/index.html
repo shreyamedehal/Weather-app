@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>WeatherApp</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: black;
+            font-family: 'Ubuntu', sans-serif;
+            min-height: 100vh;
+            background-image: url('static/weather/image.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        form {
+            min-height: 20vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        form input {
+            display: block;
+            width: 25%;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        form input,
+        form button {
+            padding: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        form button {
+            background-color: #645f5c;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        form button:hover {
+            color: #645f5c;
+            background-color: white;
+        }
+
+        .container {
+            text-align: center;
+            line-height: 40px;
+        }
+
+        #temp {
+            font-size: 3rem;
+        }
+
+        #country {
+            font-size: 2.5rem;
+        }
+
+        @media only screen and (max-width: 800px) {
+            form input {
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" class="search-input" name="city" placeholder="Search for a city..">
+            <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+
+        {% if data.country %}
+        <div class="container">
+            <h1 id="country">{{data.country}} </h1>
+            <img src='http://openweathermap.org/img/wn/{{data.icon}}@2x.png' alt="image">
+            <h1 id="temp">{{data.temprature}}</h1>
+            <h3>Min {{data.minTemp}} | Max {{data.maxTemp}}</h3>
+            <h1>{{data.main}}</h1>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
